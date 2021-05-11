@@ -1,20 +1,5 @@
 package search_tree
 
-type SearchTree struct {
-	Size int
-	root *Node
-}
-
-func CreateSearchTree(base []int) *SearchTree {
-	tree := &SearchTree{}
-
-	for _, value := range base {
-		tree.Insert(value)
-	}
-
-	return tree
-}
-
 func (tree *SearchTree) Insert(value int) *Node {
 	if tree.Size == 0 {
 		tree.Size++
@@ -23,6 +8,7 @@ func (tree *SearchTree) Insert(value int) *Node {
 	}
 
 	newNode := insertRedLeaf(tree.root, value)
+	tree.Size++
 	updateInsert(newNode, tree.root)
 	return newNode
 }
