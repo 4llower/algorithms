@@ -36,7 +36,7 @@ func updateInsert(node *Node, tree *SearchTree) {
 		return
 	}
 
-	for getParent(node).color == Red {
+	for getParent(node) != nil && getParent(node).color == Red {
 		if getUncle(node) != nil && getUncle(node).color == Red {
 			getParent(node).color = Black
 			getUncle(node).color = Black
