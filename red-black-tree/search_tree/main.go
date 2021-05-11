@@ -80,19 +80,18 @@ func updateInsert(node *Node, root *Node) {
 	root.color = Black
 }
 
-
 func rotateLeft(node *Node, root *Node) {
 	rotateHelp := node.right
 
 	node.right = rotateHelp.left
 
 	if rotateHelp.left != nil {
-		rotateHelp.left.ancestor = node
+		rotateHelp.left.parent = node
 	}
 
-	rotateHelp.ancestor = node.ancestor
+	rotateHelp.parent = node.parent
 
-	if node.ancestor == nil {
+	if node.parent == nil {
 		root = rotateHelp
 	} else {
 		if node == getParent(node).right {
@@ -103,7 +102,7 @@ func rotateLeft(node *Node, root *Node) {
 	}
 
 	rotateHelp.right = node
-	node.ancestor = rotateHelp
+	node.parent = rotateHelp
 }
 
 func rotateRight(node *Node, root *Node) {
@@ -112,12 +111,12 @@ func rotateRight(node *Node, root *Node) {
 	node.left = rotateHelp.right
 
 	if rotateHelp.right != nil {
-		rotateHelp.right.ancestor = node
+		rotateHelp.right.parent = node
 	}
 
-	rotateHelp.ancestor = node.ancestor
+	rotateHelp.parent = node.parent
 
-	if node.ancestor == nil {
+	if node.parent == nil {
 		root = rotateHelp
 	} else {
 		if node == getParent(node).right {
@@ -128,6 +127,5 @@ func rotateRight(node *Node, root *Node) {
 	}
 
 	rotateHelp.right = node
-	node.ancestor = rotateHelp
+	node.parent = rotateHelp
 }
-

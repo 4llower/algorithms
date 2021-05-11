@@ -1,11 +1,11 @@
 package search_tree
 
 func getParent(node *Node) *Node {
-	return node.ancestor
+	return node.parent
 }
 
 func getGrandFather(node *Node) *Node {
-	return getParent(node.ancestor)
+	return getParent(node.parent)
 }
 
 func getUncle(node *Node) *Node {

@@ -8,9 +8,9 @@ const (
 )
 
 type Node struct {
-	value    int
-	color    Color
-	ancestor *Node
-	left     *Node
-	right    *Node
+	value  int
+	color  Color
+	parent *Node
+	left   *Node
+	right  *Node
 }
