@@ -14,7 +14,7 @@ func (tree *SearchTree) Insert(value int) *Node {
 }
 
 func insertRedLeaf(node *Node, value int) *Node {
-	if value < node.value {
+	if value < node.Value {
 		if node.left == nil {
 			node.left = &Node{value, Red, node, nil, nil}
 			return node.left
