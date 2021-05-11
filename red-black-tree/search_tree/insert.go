@@ -68,7 +68,7 @@ func updateInsert(node *Node, tree *SearchTree) {
 
 func rotateLeft(node *Node, tree *SearchTree) {
 	rotateHelp := node.right
-	print(node.Value)
+
 	node.right = rotateHelp.left
 
 	if rotateHelp.left != nil {
