@@ -21,8 +21,6 @@ func getMinimum(node *Node) *Node {
 		return nil
 	}
 
-	println(node.left, node.right)
-
 	if node.left == nil {
 		return node
 	}

@@ -9,7 +9,7 @@ func (tree *SearchTree) Insert(value int) *Node {
 
 	newNode := insertRedLeaf(tree.root, value)
 	tree.Size++
-	updateInsert(newNode, tree.root)
+	updateInsert(newNode, tree)
 	return newNode
 }
 
@@ -30,14 +30,14 @@ func insertRedLeaf(node *Node, value int) *Node {
 	return insertRedLeaf(node.right, value)
 }
 
-func updateInsert(node *Node, root *Node) {
-	if node == root {
+func updateInsert(node *Node, tree *SearchTree) {
+	if node == tree.root {
 		node.color = Black
 		return
 	}
 
 	for getParent(node).color == Red {
-		if getUncle(node) != nil && getUncle(node).color == Black {
+		if getUncle(node) != nil && getUncle(node).color == Red {
 			getParent(node).color = Black
 			getUncle(node).color = Black
 			getGrandFather(node).color = Red
@@ -46,29 +46,29 @@ func updateInsert(node *Node, root *Node) {
 			if isParentLeft(node) {
 				if !isLeft(node) {
 					node = getParent(node)
-					rotateLeft(node, root)
+					rotateLeft(node, tree)
 				}
 				getParent(node).color = Black
 				getGrandFather(node).color = Red
-				rotateRight(getGrandFather(node), root)
+				rotateRight(getGrandFather(node), tree)
 			} else {
 				if isLeft(node) {
 					node = getParent(node)
-					rotateRight(node, root)
+					rotateRight(node, tree)
 				}
 				getParent(node).color = Black
 				getGrandFather(node).color = Red
-				rotateLeft(getGrandFather(node), root)
+				rotateLeft(getGrandFather(node), tree)
 			}
 		}
 	}
 
-	root.color = Black
+	tree.root.color = Black
 }
 
-func rotateLeft(node *Node, root *Node) {
+func rotateLeft(node *Node, tree *SearchTree) {
 	rotateHelp := node.right
-
+	print(node.Value)
 	node.right = rotateHelp.left
 
 	if rotateHelp.left != nil {
@@ -78,7 +78,7 @@ func rotateLeft(node *Node, root *Node) {
 	rotateHelp.parent = node.parent
 
 	if node.parent == nil {
-		root = rotateHelp
+		tree.root = rotateHelp
 	} else {
 		if node == getParent(node).right {
 			getParent(node).right = rotateHelp
@@ -91,7 +91,7 @@ func rotateLeft(node *Node, root *Node) {
 	node.parent = rotateHelp
 }
 
-func rotateRight(node *Node, root *Node) {
+func rotateRight(node *Node, tree *SearchTree) {
 	rotateHelp := node.left
 
 	node.left = rotateHelp.right
@@ -103,7 +103,7 @@ func rotateRight(node *Node, root *Node) {
 	rotateHelp.parent = node.parent
 
 	if node.parent == nil {
-		root = rotateHelp
+		tree.root = rotateHelp
 	} else {
 		if node == getParent(node).right {
 			getParent(node).right = rotateHelp
