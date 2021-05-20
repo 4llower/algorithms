@@ -16,12 +16,16 @@ func main() {
 
 	for i := 0; i < MAXN; i++ {
 		newValue := rand.Int()
-		sourceArray.PushBack(ArrayValue{Value: newValue})
+		sourceArray.PushBack(newValue)
 		tree.Insert(newValue)
+		//println(newValue)
 	}
 
+	//println("---- end ----")
+
 	for it := sourceArray.Front(); it != nil; it = it.Next() {
-		if tree.Find(it.Value.(*ArrayValue).Value) == nil {
+		//println((*it).Value.(int))
+		if tree.Find((*it).Value.(int)) == nil {
 			print("NOT PASSED!")
 			return
 		}

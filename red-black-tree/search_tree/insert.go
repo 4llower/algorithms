@@ -77,17 +77,17 @@ func rotateLeft(node *Node, tree *SearchTree) {
 
 	rotateHelp.parent = node.parent
 
-	if node.parent == nil {
+	if getParent(node) == nil {
 		tree.root = rotateHelp
 	} else {
-		if node == getParent(node).right {
-			getParent(node).right = rotateHelp
-		} else {
+		if node == getParent(node).left {
 			getParent(node).left = rotateHelp
+		} else {
+			getParent(node).right = rotateHelp
 		}
 	}
 
-	rotateHelp.right = node
+	rotateHelp.left = node
 	node.parent = rotateHelp
 }
 
