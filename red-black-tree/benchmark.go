@@ -104,6 +104,10 @@ func sortedOrderTest() bool {
 }
 
 func iterationTest() bool {
+	tree := searchTree.CreateSearchTree([]int{})
+	for it := tree.Begin().Next(); it != nil; it = it.Next() {
+
+	}
 	return false
 }
 
@@ -137,8 +141,9 @@ type Test struct {
 }
 
 func main() {
-	setupTests([]Test{{hardTest, "HARD"},
-		{minimumFindTest, "MINIMUM"},
-		{sortedOrderTest, "SORTED ORDER"},
+	setupTests([]Test{
+		//{hardTest, "HARD"},
+		//{minimumFindTest, "MINIMUM"},
+		//{sortedOrderTest, "SORTED ORDER"},
 		{iterationTest, "ITERATION"}})
 }
