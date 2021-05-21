@@ -23,7 +23,6 @@ type ArrayValue struct {
 
 func hardTest() bool {
 	const bigN = 1000000
-	println("--- HARD TEST START ---")
 	tree := searchTree.CreateSearchTree([]int{})
 	sourceArray := list.New()
 
@@ -38,19 +37,16 @@ func hardTest() bool {
 	for it := sourceArray.Front(); it != nil; it = it.Next() {
 		if tree.Find((*it).Value.(int)) == nil {
 			fmt.Printf(ErrorColor, "NOT PASSED!\n")
-			println("--- HARD TEST END ---\n")
 			return false
 		}
 	}
 
 	fmt.Printf(SuccessColor, fmt.Sprintf("PASSED at %f with %d elements\n", time.Now().Sub(start).Seconds(), bigN))
-	println("--- HARD TEST END ---\n")
 	return true
 }
 
 func minimumFindTest() bool {
 	const N = 100
-	println("--- MINIMUM TEST START ---")
 
 	tree := searchTree.CreateSearchTree([]int{})
 	sourceArray := list.New()
@@ -70,19 +66,16 @@ func minimumFindTest() bool {
 
 		if tree.GetMin().Value != min {
 			fmt.Printf(ErrorColor, "NOT PASSED!\n")
-			println("--- MINIMUM TEST END ---\n")
 			return false
 		}
 	}
 	fmt.Printf(SuccessColor, fmt.Sprintf("PASSED with %d elements\n", N))
-	println("--- MINIMUM TEST END ---\n")
 	return true
 }
 
 func sortedOrderTest() bool {
 	const N = 10
 	var sourceArray [N]int
-	println("--- SORTED ORDER START ---")
 
 	tree := searchTree.CreateSearchTree([]int{})
 
@@ -100,38 +93,35 @@ func sortedOrderTest() bool {
 
 	index := 0
 
-	treeList := tree.ToSortedList()
+	treeList := tree.Values()
 
 	for it := treeList.Front(); it != nil; it = it.Next() {
 		if (*it).Value.(int) != slice[index] {
 			fmt.Printf(ErrorColor, "NOT PASSED!\n")
-			println("--- SORTED ORDER END ---\n")
 			return false
 		}
 		index++
 	}
 
 	fmt.Printf(SuccessColor, fmt.Sprintf("PASSED with %d elements\n", N))
-	println("--- SORTED ORDER END ---\n")
 	return true
 }
 
-func main() {
-	passedTests := 0
-	allTests := 3
+func iterationTest() bool {
+	return false
+}
 
+func setupTests(tests []Test) {
+	passedTests := 0
+	allTests := len(tests)
 	fmt.Printf(InfoColor, "START TESTING...\n\n")
 
-	if hardTest() {
-		passedTests++
-	}
-
-	if minimumFindTest() {
-		passedTests++
-	}
-
-	if sortedOrderTest() {
-		passedTests++
+	for i := 0; i < allTests; i++ {
+		print(fmt.Sprintf("--- %s START ---\n", tests[i].name))
+		if tests[i].function() {
+			passedTests++
+		}
+		println(fmt.Sprintf("--- %s END ---\n", tests[i].name))
 	}
 
 	if passedTests == allTests {
@@ -139,4 +129,18 @@ func main() {
 	} else {
 		fmt.Printf(WarningColor, fmt.Sprintf("--- PASSED %d / %d ---", passedTests, allTests))
 	}
+}
+
+type Function = func() bool
+
+type Test struct {
+	function Function
+	name     string
+}
+
+func main() {
+	setupTests([]Test{{hardTest, "HARD"},
+		{minimumFindTest, "MINIMUM"},
+		{sortedOrderTest, "SORTED ORDER"},
+		{iterationTest, "ITERATION"}})
 }

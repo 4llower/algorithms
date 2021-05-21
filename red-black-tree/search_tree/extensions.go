@@ -39,7 +39,7 @@ func preOrder(node *Node, current *list.List) {
 	preOrder(node.right, current)
 }
 
-func (tree *SearchTree) ToSortedList() *list.List {
+func (tree *SearchTree) Values() *list.List {
 	result := list.New()
 	preOrder(tree.root, result)
 	return result

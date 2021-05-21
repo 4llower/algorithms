@@ -1,17 +1,18 @@
 package search_tree
 
-func (tree SearchTree) Next() {
+type Iterator struct {
+	tree *SearchTree
+	node *Node
+}
+
+func (tree *SearchTree) Begin() *Iterator {
+	return &Iterator{tree, getMinimum(tree.root)}
+}
+
+func (iterator *Iterator) Next() {
 
 }
 
-func (tree SearchTree) Prev() {
-
-}
-
-func (tree SearchTree) Begin() {
-
-}
-
-func (tree SearchTree) End() {
+func (iterator *Iterator) Prev() {
 
 }
