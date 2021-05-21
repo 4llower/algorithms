@@ -117,18 +117,20 @@ func setupTests(tests []Test) {
 	fmt.Printf(InfoColor, "START TESTING...\n\n")
 
 	for i := 0; i < allTests; i++ {
-		print(fmt.Sprintf("--- %s START ---\n", tests[i].name))
+		print(fmt.Sprintf("--- %s TEST START ---\n", tests[i].name))
 		if tests[i].function() {
 			passedTests++
 		}
-		println(fmt.Sprintf("--- %s END ---\n", tests[i].name))
+		println(fmt.Sprintf("--- %s TEST END ---\n", tests[i].name))
 	}
 
 	if passedTests == allTests {
-		fmt.Printf(SuccessColor, fmt.Sprintf("--- PASSED %d / %d ---", passedTests, allTests))
+		fmt.Printf(SuccessColor, fmt.Sprintf("--- PASSED %d / %d ---\n\n", passedTests, allTests))
 	} else {
-		fmt.Printf(WarningColor, fmt.Sprintf("--- PASSED %d / %d ---", passedTests, allTests))
+		fmt.Printf(WarningColor, fmt.Sprintf("--- PASSED %d / %d ---\n\n", passedTests, allTests))
 	}
+
+	fmt.Printf(InfoColor, "TESTING SUCCESSFULLY COMPLETED")
 }
 
 type Function = func() bool
