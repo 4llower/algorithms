@@ -22,7 +22,13 @@ func (tree *SearchTree) Begin() *Iterator {
 }
 
 func (iterator *Iterator) Next() *Iterator {
-	return &Iterator{iterator.Tree, getNext(iterator.Node)}
+	nextNode := getNext(iterator.Node)
+
+	if nextNode == nil {
+		return nil
+	}
+
+	return &Iterator{iterator.Tree, nextNode}
 }
 
 func (iterator *Iterator) Prev() {

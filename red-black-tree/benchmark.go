@@ -105,8 +105,16 @@ func sortedOrderTest() bool {
 
 func iterationTest() bool {
 	tree := searchTree.CreateSearchTree([]int{})
-	for it := tree.Begin().Next(); it != nil; it = it.Next() {
 
+	const N = 10
+
+	for i := 0; i < N; i++ {
+		newValue := rand.Intn(1000)
+		tree.Insert(newValue)
+	}
+
+	for it := tree.Begin(); it != nil; it = it.Next() {
+		println(it.Node.Value)
 	}
 	return false
 }
