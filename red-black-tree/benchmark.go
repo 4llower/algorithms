@@ -113,7 +113,7 @@ func iterationTest() bool {
 		tree.Insert(newValue)
 	}
 
-	for it := tree.Begin(); it != nil; it = it.Next() {
+	for it := tree.End(); it != nil; it = it.Prev() {
 		println(it.Node.Value)
 	}
 	return false

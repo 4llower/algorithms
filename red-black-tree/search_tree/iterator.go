@@ -17,6 +17,21 @@ func getNext(node *Node) *Node {
 	return current
 }
 
+func getPrev(node *Node) *Node {
+	if node.left != nil {
+		return getMaximum(node.left)
+	}
+
+	current := getParent(node)
+
+	for current != nil && node == current.left {
+		node = current
+		current = getParent(current)
+	}
+
+	return current
+}
+
 func (tree *SearchTree) Begin() *Iterator {
 	return &Iterator{tree, getMinimum(tree.root)}
 }
@@ -35,6 +50,12 @@ func (iterator *Iterator) Next() *Iterator {
 	return &Iterator{iterator.Tree, nextNode}
 }
 
-func (iterator *Iterator) Prev() {
+func (iterator *Iterator) Prev() *Iterator {
+	prevNode := getPrev(iterator.Node)
 
+	if prevNode == nil {
+		return nil
+	}
+
+	return &Iterator{iterator.Tree, prevNode}
 }
