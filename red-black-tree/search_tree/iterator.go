@@ -18,14 +18,11 @@ func getNext(node *Node) *Node {
 }
 
 func (tree *SearchTree) Begin() *Iterator {
-	return &Iterator{tree, nil}
+	return &Iterator{tree, getMinimum(tree.root)}
 }
 
-func (iterator *Iterator) Next() *Node {
-	if iterator.Node == nil {
-		return getMinimum(iterator.Tree.root)
-	}
-	return getNext(iterator.Node)
+func (iterator *Iterator) Next() *Iterator {
+	return &Iterator{iterator.Tree, getNext(iterator.Node)}
 }
 
 func (iterator *Iterator) Prev() {
