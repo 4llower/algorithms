@@ -174,8 +174,8 @@ type Test struct {
 
 func main() {
 	setupTests([]Test{
-		//{hardTest, "HARD"},
-		//{minimumFindTest, "MINIMUM"},
-		//{sortedOrderTest, "SORTED ORDER"},
-		{iterationTest, "ITERATION"}})
+		{minimumFindTest, "MINIMUM"},
+		{sortedOrderTest, "SORTED ORDER"},
+		{iterationTest, "ITERATION"},
+		{hardTest, "HARD"}})
 }
