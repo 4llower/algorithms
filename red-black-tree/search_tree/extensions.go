@@ -1,5 +1,7 @@
 package search_tree
 
+import "container/list"
+
 func getNodeWithSameValue(node *Node, value int) *Node {
 	if node == nil {
 		return nil
@@ -26,6 +28,21 @@ func getMinimum(node *Node) *Node {
 	}
 
 	return getMinimum(node.left)
+}
+
+func preOrder(node *Node, current *list.List) {
+	if node == nil {
+		return
+	}
+	preOrder(node.left, current)
+	current.PushBack(node.Value)
+	preOrder(node.right, current)
+}
+
+func (tree *SearchTree) ToSortedList() *list.List {
+	result := list.New()
+	preOrder(tree.root, result)
+	return result
 }
 
 func (tree *SearchTree) Find(value int) *Node {
