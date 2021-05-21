@@ -21,6 +21,10 @@ func (tree *SearchTree) Begin() *Iterator {
 	return &Iterator{tree, getMinimum(tree.root)}
 }
 
+func (tree *SearchTree) End() *Iterator {
+	return &Iterator{tree, getMaximum(tree.root)}
+}
+
 func (iterator *Iterator) Next() *Iterator {
 	nextNode := getNext(iterator.Node)
 

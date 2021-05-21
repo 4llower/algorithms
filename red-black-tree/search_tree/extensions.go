@@ -30,6 +30,18 @@ func getMinimum(node *Node) *Node {
 	return getMinimum(node.left)
 }
 
+func getMaximum(node *Node) *Node {
+	if node == nil {
+		return nil
+	}
+
+	if node.right == nil {
+		return node
+	}
+
+	return getMaximum(node.right)
+}
+
 func preOrder(node *Node, current *list.List) {
 	if node == nil {
 		return
