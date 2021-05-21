@@ -71,12 +71,12 @@ func minimumFindTest() bool {
 
 func sortedOrderTest() bool {
 	const N = 10
-	var sourceArray [N]int
 
 	tree := searchTree.CreateSearchTree([]int{})
 
+	var sourceArray [N]int
 	for i := 0; i < N; i++ {
-		newValue := rand.Intn(1000)
+		newValue := rand.Int()
 		sourceArray[i] = newValue
 		tree.Insert(newValue)
 	}
@@ -106,17 +106,41 @@ func sortedOrderTest() bool {
 func iterationTest() bool {
 	tree := searchTree.CreateSearchTree([]int{})
 
-	const N = 10
+	const N = 100
 
+	var sourceArray [N]int
 	for i := 0; i < N; i++ {
-		newValue := rand.Intn(1000)
+		newValue := rand.Int()
+		sourceArray[i] = newValue
 		tree.Insert(newValue)
 	}
 
-	for it := tree.End(); it != nil; it = it.Prev() {
-		println(it.Node.Value)
+	slice := sourceArray[:]
+
+	sort.Slice(slice, func(i, j int) bool {
+		return slice[i] < slice[j]
+	})
+
+	index := 0
+
+	for it := tree.Begin(); it != nil; it = it.Next() {
+		if sourceArray[index] != it.Node.Value {
+			fmt.Printf(ErrorColor, "NOT PASSED IN ASC ORDER!\n")
+			return false
+		}
+		index++
 	}
-	return false
+
+	for it := tree.End(); it != nil; it = it.Prev() {
+		index--
+		if sourceArray[index] != it.Node.Value {
+			fmt.Printf(ErrorColor, "NOT PASSED IN DESC ORDER!\n")
+			return false
+		}
+	}
+
+	fmt.Printf(SuccessColor, fmt.Sprintf("PASSED with %d elements\n", N))
+	return true
 }
 
 func setupTests(tests []Test) {
