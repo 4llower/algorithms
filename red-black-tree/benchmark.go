@@ -17,10 +17,6 @@ const (
 	SuccessColor = "\033[1;32m%s\033[0m"
 )
 
-type ArrayValue struct {
-	Value int
-}
-
 func hardTest() bool {
 	const bigN = 1000000
 	tree := searchTree.CreateSearchTree([]int{})
