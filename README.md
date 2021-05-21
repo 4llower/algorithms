@@ -10,7 +10,7 @@
 
 Language: Go
 
-### SQRT Decomposition *(not implemented)*
+### SQRT Decomposition
 
 <img src="/docs/sqrt-decomposition.png" width="400">
 
