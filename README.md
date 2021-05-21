@@ -12,19 +12,19 @@ Language: Go
 
 ### SQRT Decomposition *(not implemented)*
 
-<img src="/docs/z-function.png" width="500">
+<img src="/docs/sqrt-decomposition.png" width="400">
 
 Language: Go
 
 ### Segment tree *(not implemented)*
 
-<img src="/docs/z-function.png" width="500">
+<img src="/docs/segment-tree.jpg" width="500">
 
 Language: Go
 
 ### Hash table *(not implemented)*
 
-<img src="/docs/z-function.png" width="500">
+<img src="/docs/hash-table.png" width="500">
 
 Language: Go
 
