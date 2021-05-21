@@ -64,3 +64,7 @@ func (tree *SearchTree) Find(value int) *Node {
 func (tree *SearchTree) GetMin() *Node {
 	return getMinimum(tree.root)
 }
+
+func (tree *SearchTree) GetMax() *Node {
+	return getMaximum(tree.root)
+}

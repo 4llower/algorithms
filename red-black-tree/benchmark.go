@@ -53,14 +53,18 @@ func minimumFindTest() bool {
 		tree.Insert(newValue)
 
 		min := math.MaxInt64
+		max := -math.MaxInt64
 
 		for it := sourceArray.Front(); it != nil; it = it.Next() {
 			if min > (*it).Value.(int) {
 				min = (*it).Value.(int)
 			}
+			if max < (*it).Value.(int) {
+				max = (*it).Value.(int)
+			}
 		}
 
-		if tree.GetMin().Value != min {
+		if tree.GetMin().Value != min || tree.GetMax().Value != max {
 			fmt.Printf(ErrorColor, "NOT PASSED!\n")
 			return false
 		}
@@ -162,7 +166,7 @@ func setupTests(tests []Test) {
 		fmt.Printf(WarningColor, fmt.Sprintf("--- PASSED %d / %d ---\n\n", passedTests, allTests))
 	}
 
-	fmt.Printf(InfoColor, "TESTING SUCCESSFULLY COMPLETED")
+	fmt.Printf(InfoColor, "SUCCESSFULLY COMPLETED")
 }
 
 type Function = func() bool
@@ -174,7 +178,7 @@ type Test struct {
 
 func main() {
 	setupTests([]Test{
-		{minimumFindTest, "MINIMUM"},
+		{minimumFindTest, "MAXIMUM / MINIMUM"},
 		{sortedOrderTest, "SORTED ORDER"},
 		{iterationTest, "ITERATION"},
 		{hardTest, "HARD"}})
