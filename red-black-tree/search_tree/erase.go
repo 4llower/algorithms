@@ -38,7 +38,58 @@ func commitTransplant(tree *SearchTree, node *Node) {
 }
 
 func updateErase(tree *SearchTree, node *Node) {
-
+	var current *Node
+	for node != tree.root && node.color == Black {
+		if isLeft(node) {
+			current = getParent(node).right
+			if current.color == Red {
+				current.color = Black
+				node.parent.color = Red
+				rotateLeft(getParent(node), tree)
+				current = getParent(node).right
+			}
+			if current.left.color == Black && current.right.color == Black {
+				current.color = Red
+				node = getParent(node)
+			} else {
+				if current.right.color == Black {
+					current.left.color = Black
+					current.color = Red
+					rotateRight(node, tree)
+					current = node.parent.right
+				}
+				current.color = getParent(node).color
+				node.parent.color = Black
+				current.right.color = Black
+				rotateLeft(getParent(node), tree)
+				node = tree.root
+			}
+		} else {
+			current = getParent(node).left
+			if current.color == Red {
+				current.color = Black
+				node.parent.color = Red
+				rotateRight(getParent(node), tree)
+				current = getParent(node).left
+			}
+			if current.right.color == Black && current.left.color == Black {
+				current.color = Red
+				node = getParent(node)
+			} else {
+				if current.left.color == Black {
+					current.right.color = Black
+					current.color = Red
+					rotateLeft(node, tree)
+					current = getParent(node).left
+				}
+				current.color = getParent(node).color
+				node.parent.color = Black
+				current.left.color = Black
+				rotateRight(getParent(node), tree)
+				node = tree.root
+			}
+		}
+	}
 }
 
 func transplant(tree *SearchTree, node *Node, graft *Node) {
