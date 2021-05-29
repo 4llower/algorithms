@@ -147,6 +147,27 @@ func iterationTest() bool {
 	return true
 }
 
+func eraseTest() bool {
+	tree := searchTree.CreateSearchTree([]interface{}{})
+
+	const N = 100
+
+	var sourceArray [N]int
+	for i := 0; i < N; i++ {
+		newValue := rand.Int()
+		sourceArray[i] = newValue
+		tree.Insert(newValue)
+	}
+
+	slice := sourceArray[:]
+
+	sort.Slice(slice, func(i, j int) bool {
+		return slice[i] < slice[j]
+	})
+
+	return iterationTest()
+}
+
 func setupTests(tests []Test) {
 	passedTests := 0
 	allTests := len(tests)
@@ -181,5 +202,6 @@ func main() {
 		{minimumFindTest, "MAXIMUM / MINIMUM"},
 		{sortedOrderTest, "SORTED ORDER"},
 		{iterationTest, "ITERATION"},
+		{eraseTest, "ERASE"},
 		{hardTest, "HARD"}})
 }

@@ -6,22 +6,25 @@ func (tree *SearchTree) Erase(value interface{}) {
 		return
 	}
 	commitTransplant(tree, foundNode)
+	tree.Size--
 }
 
 func commitTransplant(tree *SearchTree, node *Node) {
 	current := node
-	var help *Node
+	var x *Node
+	lastColor := current.color
 	if node.left == nil {
-		help = node.right
-		transplant(tree, node, help)
+		x = node.right
+		transplant(tree, node, node.right)
 	} else if node.right == nil {
-		help = node.left
-		transplant(tree, node, help)
+		x = node.left
+		transplant(tree, node, node.left)
 	} else {
 		current = getMinimum(node.right)
-		help = current.right
+		x = current.right
+		lastColor = current.color
 		if getParent(current) == node {
-			help.parent = current
+			x.parent = current
 		} else {
 			transplant(tree, current, current.right)
 			current.right = node.right
@@ -32,8 +35,8 @@ func commitTransplant(tree *SearchTree, node *Node) {
 		current.left.parent = current
 		current.color = node.color
 	}
-	if current.color == Black {
-		updateErase(tree, help)
+	if lastColor == Black {
+		updateErase(tree, x)
 	}
 }
 
@@ -55,8 +58,8 @@ func updateErase(tree *SearchTree, node *Node) {
 				if current.right.color == Black {
 					current.left.color = Black
 					current.color = Red
-					rotateRight(node, tree)
-					current = node.parent.right
+					rotateRight(current, tree)
+					current = getParent(node).right
 				}
 				current.color = getParent(node).color
 				node.parent.color = Black
@@ -72,14 +75,14 @@ func updateErase(tree *SearchTree, node *Node) {
 				rotateRight(getParent(node), tree)
 				current = getParent(node).left
 			}
-			if current.right.color == Black && current.left.color == Black {
+			if current.left.color == Black && current.right.color == Black {
 				current.color = Red
 				node = getParent(node)
 			} else {
 				if current.left.color == Black {
 					current.right.color = Black
 					current.color = Red
-					rotateLeft(node, tree)
+					rotateLeft(current, tree)
 					current = getParent(node).left
 				}
 				current.color = getParent(node).color
