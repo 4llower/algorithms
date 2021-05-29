@@ -18,7 +18,7 @@ const (
 )
 
 func hardTest() bool {
-	const bigN = 1000000
+	const bigN = 500000
 	tree := searchTree.CreateSearchTree([]interface{}{})
 	sourceArray := list.New()
 
@@ -169,10 +169,10 @@ func setupTests(tests []Test) {
 	fmt.Printf(InfoColor, "SUCCESSFULLY COMPLETED")
 }
 
-type Function = func() bool
+type BoolFunction = func() bool
 
 type Test struct {
-	function Function
+	function BoolFunction
 	name     string
 }
 
