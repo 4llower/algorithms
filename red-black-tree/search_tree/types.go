@@ -8,7 +8,7 @@ const (
 )
 
 type Node struct {
-	Value  int
+	Value  interface{}
 	color  Color
 	parent *Node
 	left   *Node

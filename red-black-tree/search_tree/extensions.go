@@ -2,20 +2,20 @@ package search_tree
 
 import "container/list"
 
-func getNodeWithSameValue(node *Node, value int) *Node {
+func getNodeWithSameValue(compare Comparable, node *Node, value interface{}) *Node {
 	if node == nil {
 		return nil
 	}
 
-	if node.Value == value {
+	if compare(node.Value, value) == 0 {
 		return node
 	}
 
-	if node.Value > value {
-		return getNodeWithSameValue(node.left, value)
+	if compare(value, node.Value) < 0 {
+		return getNodeWithSameValue(compare, node.left, value)
 	}
 
-	return getNodeWithSameValue(node.right, value)
+	return getNodeWithSameValue(compare, node.right, value)
 }
 
 func getMinimum(node *Node) *Node {
@@ -57,8 +57,8 @@ func (tree *SearchTree) Values() *list.List {
 	return result
 }
 
-func (tree *SearchTree) Find(value int) *Node {
-	return getNodeWithSameValue(tree.root, value)
+func (tree *SearchTree) Find(value interface{}) *Node {
+	return getNodeWithSameValue(tree.Compare, tree.root, value)
 }
 
 func (tree *SearchTree) GetMin() *Node {

@@ -19,7 +19,7 @@ const (
 
 func hardTest() bool {
 	const bigN = 1000000
-	tree := searchTree.CreateSearchTree([]int{})
+	tree := searchTree.CreateSearchTree([]interface{}{})
 	sourceArray := list.New()
 
 	start := time.Now()
@@ -44,7 +44,7 @@ func hardTest() bool {
 func minimumFindTest() bool {
 	const N = 100
 
-	tree := searchTree.CreateSearchTree([]int{})
+	tree := searchTree.CreateSearchTree([]interface{}{})
 	sourceArray := list.New()
 
 	for i := 0; i < N; i++ {
@@ -76,7 +76,7 @@ func minimumFindTest() bool {
 func sortedOrderTest() bool {
 	const N = 10
 
-	tree := searchTree.CreateSearchTree([]int{})
+	tree := searchTree.CreateSearchTree([]interface{}{})
 
 	var sourceArray [N]int
 	for i := 0; i < N; i++ {
@@ -108,7 +108,7 @@ func sortedOrderTest() bool {
 }
 
 func iterationTest() bool {
-	tree := searchTree.CreateSearchTree([]int{})
+	tree := searchTree.CreateSearchTree([]interface{}{})
 
 	const N = 100
 

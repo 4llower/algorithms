@@ -1,25 +1,25 @@
 package search_tree
 
-func (tree *SearchTree) Insert(value int) *Node {
+func (tree *SearchTree) Insert(value interface{}) *Node {
 	if tree.Size == 0 {
 		tree.Size++
 		tree.root = &Node{value, Black, nil, nil, nil}
 		return tree.root
 	}
 
-	newNode := insertRedLeaf(tree.root, value)
+	newNode := insertRedLeaf(tree.Compare, tree.root, value)
 	tree.Size++
 	updateInsert(newNode, tree)
 	return newNode
 }
 
-func insertRedLeaf(node *Node, value int) *Node {
-	if value < node.Value {
+func insertRedLeaf(compare Comparable, node *Node, value interface{}) *Node {
+	if compare(value, node.Value) < 0 {
 		if node.left == nil {
 			node.left = &Node{value, Red, node, nil, nil}
 			return node.left
 		}
-		return insertRedLeaf(node.left, value)
+		return insertRedLeaf(compare, node.left, value)
 	}
 
 	if node.right == nil {
@@ -27,7 +27,7 @@ func insertRedLeaf(node *Node, value int) *Node {
 		return node.right
 	}
 
-	return insertRedLeaf(node.right, value)
+	return insertRedLeaf(compare, node.right, value)
 }
 
 func updateInsert(node *Node, tree *SearchTree) {

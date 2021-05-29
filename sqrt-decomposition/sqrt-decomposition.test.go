@@ -1,1 +1,5 @@
-package sqrt_decomposition
+package main
+
+func main() {
+
+}

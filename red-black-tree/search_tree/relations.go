@@ -29,3 +29,7 @@ func isLeft(node *Node) bool {
 	}
 	return false
 }
+
+func defaultCompare(value1 interface{}, value2 interface{}) int {
+	return value1.(int) - value2.(int)
+}
